@@ -1,7 +1,5 @@
 import csv
 import json
-from itertools import count
-
 from bs4 import BeautifulSoup
 import  requests
 import lxml
@@ -16,11 +14,12 @@ def get_date():
             ['Название фильма',
             'Рейтинг',
             'Год',
-            'Режисёр'
+            'Режисёр',
+             'Ссылка'
              ]
         )
 
-    for i in range(1, 800):
+    for i in range(1, 8):
 
         url_api = f'https://zonafilm.ru/api/movies?page={i}'
         # url = 'https://zonafilm.ru/api/movies?page=1'
@@ -43,9 +42,10 @@ def get_date():
                 item_year = item.get('year')
                 item_rating = round(item.get('rating'), 2)
                 item_directors = item.get('directors')
+                item_slug = 'https://zonafilm.ru/movies/' + item.get('slug')
 
                 films_list.append(
-                    [item_film, item_rating, item_year, item_directors]
+                    [item_film, item_rating, item_year, item_directors, item_slug]
                 )
                 count += 1
                 print(count)
